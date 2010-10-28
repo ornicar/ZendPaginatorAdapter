@@ -5,7 +5,7 @@ Learn about the paginator on [Zend Framework Paginator documentation](http://fra
 ## DoctrineMongoDBAdapter
 
     use Zend\Paginator\Paginator;
-    use Zend\Paginator\Adapter\DoctrineMongoDBAdapter;
+    use ZendPaginatorAdapter\DoctrineMongoDBAdapter;
 
     $query      = $repository->createQuery();           // create a Doctrine MongoDB Query
     $adapter    = new DoctrineMongoDBAdapter($query);   // create a Doctrine MongoDB Adapter
@@ -14,7 +14,7 @@ Learn about the paginator on [Zend Framework Paginator documentation](http://fra
 ## DoctrineORMAdapter
 
     use Zend\Paginator\Paginator;
-    use Zend\Paginator\Adapter\DoctrineORMAdapter;
+    use ZendPaginatorAdapter\DoctrineORMAdapter;
 
     $query      = $repository->createQuery();           // create a Doctrine ORM Query
     $adapter    = new DoctrineORMAdapter($query);       // create a Doctrine ORM Adapter

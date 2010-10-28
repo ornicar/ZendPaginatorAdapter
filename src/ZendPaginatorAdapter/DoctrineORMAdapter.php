@@ -1,6 +1,6 @@
 <?php
 
-namespace Zend\Paginator\Adapter;
+namespace ZendPaginatorAdapter;
 
 use Doctrine\ORM\Query;
 use Zend\Paginator\Adapter;
