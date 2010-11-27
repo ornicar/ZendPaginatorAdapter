@@ -3,7 +3,7 @@
 namespace ZendPaginatorAdapter;
 
 use Zend\Paginator\Adapter;
-use Doctrine\ODM\MongoDB\Query;
+use Doctrine\ODM\MongoDB\QueryBuilder;
 use Doctrine\ODM\MongoDB\MongoCursor;
 
 /**
@@ -14,20 +14,20 @@ use Doctrine\ODM\MongoDB\MongoCursor;
 class DoctrineMongoDBAdapter implements Adapter
 {
     /**
-     * The query to paginate
+     * The query builder to paginate
      *
-     * @var Query
+     * @var QueryBuilder
      */
-    protected $query = null;
+    protected $queryBuilder = null;
 
     /**
      * @see PaginatorAdapterInterface::__construct
      *
-     * @param Query the query to paginate
+     * @param QueryBuilder the query builder to paginate
      */
-    public function __construct(Query $query)
+    public function __construct(QueryBuilder $queryBuilder)
     {
-        $this->query = $query;
+        $this->queryBuilder = $queryBuilder;
     }
 
     /**
@@ -35,9 +35,9 @@ class DoctrineMongoDBAdapter implements Adapter
      */
     public function getItems($offset, $itemCountPerPage)
     {
-        $query = clone $this->query;
+        $queryBuilder = clone $this->queryBuilder;
 
-        $results = $query->skip($offset)->limit($itemCountPerPage)->execute();
+        $results = $queryBuilder->skip($offset)->limit($itemCountPerPage)->getQuery()->execute();
 
         // If we get a MongoCursor, transform it to an array
         if($results instanceof MongoCursor) {
@@ -53,6 +53,6 @@ class DoctrineMongoDBAdapter implements Adapter
      */
     public function count()
     {
-        return $this->query->count();
+        return $this->queryBuilder->getQuery()->count();
     }
 }
