@@ -41,7 +41,7 @@ class DoctrineMongoDBAdapter implements Adapter
 
         // If we get a MongoCursor, transform it to an array
         if($results instanceof MongoCursor) {
-            $results = $results->getResults();
+            $results = $results->toArray();
         }
 
         // Dont use object IDs as array keys
