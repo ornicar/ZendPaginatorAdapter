@@ -3,8 +3,8 @@
 namespace ZendPaginatorAdapter;
 
 use Zend\Paginator\Adapter;
-use Doctrine\ODM\MongoDB\QueryBuilder;
-use Doctrine\ODM\MongoDB\MongoCursor;
+use Doctrine\ODM\MongoDB\Query\Builder;
+use Doctrine\ODM\MongoDB\Cursor;
 
 /**
  * Implements the Zend\Paginator\Adapter Interface for use with Zend\Paginator\Paginator
@@ -16,16 +16,16 @@ class DoctrineMongoDBAdapter implements Adapter
     /**
      * The query builder to paginate
      *
-     * @var QueryBuilder
+     * @var Builder
      */
     protected $queryBuilder = null;
 
     /**
      * @see PaginatorAdapterInterface::__construct
      *
-     * @param QueryBuilder the query builder to paginate
+     * @param Builder the query builder to paginate
      */
-    public function __construct(QueryBuilder $queryBuilder)
+    public function __construct(Builder $queryBuilder)
     {
         $this->queryBuilder = $queryBuilder;
     }
@@ -39,8 +39,8 @@ class DoctrineMongoDBAdapter implements Adapter
 
         $results = $queryBuilder->skip($offset)->limit($itemCountPerPage)->getQuery()->execute();
 
-        // If we get a MongoCursor, transform it to an array
-        if($results instanceof MongoCursor) {
+        // If we get a Cursor, transform it to an array
+        if($results instanceof Cursor) {
             $results = $results->toArray();
         }
 
